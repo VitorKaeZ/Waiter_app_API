@@ -9,14 +9,13 @@ export async function createProducts (req: Request, res: Response) {
         const { name, description, price, ingredients, category } = req.body
         const imagePath = req.file?.filename
 
-        console.log(JSON.parse(ingredients))
         const product = await Product.create({ 
             name, 
             description, 
             price: Number(price), 
-            ingredients: JSON.parse(ingredients), 
             category, 
-            imagePath 
+            imagePath,
+            ingredients: ingredients ? JSON.parse(ingredients) : [], 
         })
 
         res.status(201).json(product)
